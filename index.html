@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Restaurant</title>
+    <style>
+      * {
+        /* border: solid 1px gold; */
+        margin: 0;
+        padding: 0;
+      }
+      .navbar {
+        box-shadow: -1.4px -1.4px 6px 0 #97a2a0;
+      }
+      .navbar .wrapper {
+        height: 84px;
+        height: 84px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .navbar-site_name {
+        color: #489846;
+        font-size: 36px;
+        margin-left: 96px;
+      }
+      .navbar-list {
+        list-style: none;
+        display: flex;
+        font-size: 18px;
+        margin-right: 120px;
+        padding: 0;
+      }
+      .navbar-list li {
+        margin-left: 12px;
+        padding: 12px 24px;
+        border-radius: 8px;
+        transition: background 0.1s;
+      }
+      .navbar-list li a {
+        text-decoration: none;
+        color: black;
+      }
+      .navbar-list li.active,
+      .navbar-list li:hover {
+        background: #ff7286;
+      }
+      .navbar-list li.active a,
+      .navbar-list li:hover a {
+        color: white;
+      }
+      .wrapper {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 0px 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="wrapper">
+        <div class="navbar-site_name">Just A Bite!</div>
+        <ul class="navbar-list">
+          <li class="active"><a href="#">抽個大獎</a></li>
+          <li><a href="#">我要點餐</a></li>
+          <li><a href="#">查詢訂單</a></li>
+          <li><a href="#">常見問題</a></li>
+        </ul>
+      </div>
+    </nav>
+  </body>
+</html>
