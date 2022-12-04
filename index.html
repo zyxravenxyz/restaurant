@@ -60,6 +60,18 @@
         background: url(/img/bg.jpeg) center/cover no-repeat;
         position: relative;
       }
+      .banner.first-prize {
+        background-image: url(img/first.jpeg);
+      }
+      .banner.second-prize {
+        background-image: url(img/second.jpeg);
+      }
+      .banner.third-prize {
+        background-image: url(img/third.jpeg);
+      }
+      .banner.none-prize {
+        background: black;
+      }
       .banner:after {
         content: "";
         position: absolute;
@@ -106,9 +118,35 @@
         color: white;
         background: #e62a45;
         border-radius: 8px;
-        width: 400px;
+        max-width: 350px;
         text-align: center;
         margin: 40px auto;
+        padding: 16px 0;
+        cursor: pointer;
+      }
+      .hide {
+        display: none;
+      }
+      .lottery {
+        position: relative;
+        z-index: 2;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      .lottery_title {
+        font-size: 36px;
+        text-align: center;
+        color: white;
+      }
+      .lottery_btn {
+        font-size: 20px;
+        color: white;
+        background: #e62a45;
+        border-radius: 8px;
+        max-width: 350px;
+        text-align: center;
+        margin: 55px auto;
         padding: 16px 0;
         cursor: pointer;
       }
@@ -172,7 +210,64 @@
           </div>
           <div class="card_btn">我要抽獎</div>
         </div>
+        <div class="lottery hide">
+          <div class="lottery_title">恭喜你中頭獎了！日本東京來回雙人遊！</div>
+          <div
+            class="lottery_btn"
+            onclick="javascript:window.location.reload()"
+          >
+            我要抽獎
+          </div>
+        </div>
       </section>
     </div>
+    <script>
+      const apiurl =
+        "https://dvwhnbka7d.execute-api.us-east-1.amazonaws.com/default/lottery";
+      const errMessage = "系統不穩定，請再試一次";
+      document.querySelector(".card_btn").addEventListener("click", () => {
+        let xhr = new XMLHttpRequest();
+        xhr.open("GET", apiurl, true);
+        xhr.onload = function () {
+          if (xhr.status >= 200 && xhr.status < 400) {
+            let data;
+            try {
+              data = JSON.parse(xhr.response);
+              console.log(data);
+            } catch (err) {
+              alert(errMessage);
+              return;
+            }
+            if (!data.prize) {
+              alert(errMessage);
+              return;
+            }
+            let className;
+            let title;
+            if (data.prize === "FIRST") {
+              className = "first-prize";
+              title = "恭喜你中頭獎了！日本東京來回雙人遊！";
+            } else if (data.prize === "SECOND") {
+              className = "second-prize";
+              title = "二獎！90 吋電視一台！";
+            } else if (data.prize === "THIRD") {
+              className = "third-prize";
+              title = "恭喜你抽中三獎：知名 YouTuber 簽名握手會入場券，bang！";
+            } else if (data.prize === "NONE") {
+              className = "none-prize";
+              title = "銘謝惠顧";
+            }
+            document.querySelector(".banner").classList.add(className);
+            document.querySelector(".lottery_title").innerText = title;
+            document.querySelector(".card").classList.add("hide");
+            document.querySelector(".lottery").classList.remove("hide");
+          }
+        };
+        xhr.onerror = function () {
+          alert(errMessage);
+        };
+        xhr.send();
+      });
+    </script>
   </body>
 </html>
